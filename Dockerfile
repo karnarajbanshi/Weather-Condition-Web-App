@@ -1,10 +1,10 @@
 FROM tomcat:9.0
 
-# Copy the WAR file into the webapps directory of Tomcat
-ADD **/*.war /usr/local/tomcat/webapps/
+# Download MySQL Connector/J
+RUN wget -O /usr/local/tomcat/lib/mysql-connector-java-5.1.6.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar
 
-# Add MySQL Connector/J to the lib directory of Tomcat
-ADD mysql-connector-java-5.1.6.jar /usr/local/tomcat/lib/
+# Copy the war file to the webapps directory
+ADD **/*.war /usr/local/tomcat/webapps/
 
 # Expose the default Tomcat port
 EXPOSE 8080

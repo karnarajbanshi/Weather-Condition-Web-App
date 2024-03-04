@@ -18,8 +18,8 @@ pipeline {
         sh '''
         original_pwd=$(pwd -P)
         pwd
-        docker build -t karnarajbanshi/localtomcatimg:$BUILD_NUMBER . -f Dockerfile
-        docker push karnarajbanshi/localtomcatimg:$BUILD_NUMBER # Push the built image to a repository
+        docker build -t karnarajbanshi/weatherappimage:$BUILD_NUMBER . -f Dockerfile
+        docker push karnarajbanshi/weatherappimage:$BUILD_NUMBER # Push the built image to a repository
         cd $original_pwd
         '''
       }
@@ -30,8 +30,8 @@ pipeline {
         sh '''
         docker container stop tomcatlocalinstance || true
         docker container rm tomcatlocalinstance  || true
-        docker pull karnarajbanshi/localtomcatimg:$BUILD_NUMBER # Pull the image from the repository
-        docker container run -itd --name tomcatlocalinstance -p 8083:8080 karnarajbanshi/localtomcatimg:$BUILD_NUMBER
+        docker pull karnarajbanshi/weatherappimage:$BUILD_NUMBER # Pull the image from the repository
+        docker container run -itd --name tomcatlocalinstance -p 8083:8080 karnarajbanshi/weatherappimage:$BUILD_NUMBER
         '''
       }
     }
@@ -44,8 +44,8 @@ pipeline {
         sh '''
         docker container stop tomcatstaginginstance || true
         docker container rm tomcatstaginginstance || true
-        docker pull karnarajbanshi/localtomcatimg:$BUILD_NUMBER # Pull the image from the repository
-        docker container run -itd --name tomcatstaginginstance -p 8084:8080 karnarajbanshi/localtomcatimg:$BUILD_NUMBER
+        docker pull karnarajbanshi/weatherappimage:$BUILD_NUMBER # Pull the image from the repository
+        docker container run -itd --name tomcatstaginginstance -p 8084:8080 karnarajbanshi/weatherappimage:$BUILD_NUMBER
         '''
       }
     }
